@@ -1,0 +1,4 @@
+SigninLogs
+| where TimeGenerated > ago(14d)
+| summarize count() by AuthenticationRequirement, bin(TimeGenerated, 1d)
+| render areachart
