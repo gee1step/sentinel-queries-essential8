@@ -1,0 +1,6 @@
+SigninLogs
+| where TimeGenerated > ago(14d)
+| mv-expand todynamic(AuthenticationDetails)
+| where AuthenticationDetails.succeeded == true
+| summarize count() by tostring(AuthenticationDetails.authenticationMethod), bin(TimeGenerated, 1d)
+| render areachart
